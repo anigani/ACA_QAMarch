@@ -6,19 +6,22 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 public class FunctionalTestBase {
-	
-	public WebDriver driver ;
-	final String URL = "https://google.com";
+	protected WebDriver driver;
 	String chromeDriverProp = "webdriver.chrome.driver";
-	String driverPath="C:\\Users\\hovsepyana\\Downloads\\chromedriver.exe";
+	String driverPath = "D:\\ProgramFiles\\chromedriver.exe";
+
+	protected final String URL = "https://globbing.com";
+	protected final String EMAIL = "ani.danielyan.81@mail.ru";
+	protected final String PASSWORD = "acatest2018";
 	
+
 	@BeforeClass
 	public void setup() {
-		System.setProperty(chromeDriverProp , driverPath );
+		System.setProperty(chromeDriverProp, driverPath);
 		driver = new ChromeDriver();
 		driver.get(URL);
 	}
-	
+
 	@AfterClass
 	public void tearDown() {
 		driver.quit();
