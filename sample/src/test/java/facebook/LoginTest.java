@@ -2,6 +2,7 @@ package facebook;
 
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
 import pages.FacebookHomePage;
@@ -18,94 +19,107 @@ public class LoginTest extends FunctionalTestBase {
 		WebElement submitElement = getWebElementByXpath("//input[@value='Log In']");
 		WebElement forgotAccountElement = getWebElementByXpath("//a[text()='Forgot account?']");
 
-		Assert.assertNotNull(mailElement);
-		Assert.assertNotNull(passElement);
-		Assert.assertNotNull(submitElement);
-		Assert.assertNotNull(forgotAccountElement);
+		AssertJUnit.assertNotNull(mailElement);
+		AssertJUnit.assertNotNull(passElement);
+		AssertJUnit.assertNotNull(submitElement);
+		AssertJUnit.assertNotNull(forgotAccountElement);
 	}
 
 	@Test
-	public void loginTestOK() throws InterruptedException {
+	public void loginTestOK() {
 		FacebookHomePage facebookHomePage = new FacebookHomePage(driver);
 
 		FacebookProfilePage facebookProfilePage = facebookHomePage.login(EMAIL, PASSWORD);
 
+		AssertJUnit.assertTrue(facebookProfilePage.isOK());
+		AssertJUnit.assertTrue(facebookProfilePage.isElementPresent(FacebookProfilePage.profileNameXpath));
+		AssertJUnit.assertEquals(facebookProfilePage.getProfileName(), "Aniko");
+
+	}
+	@Test
+	public void backForwardTestOK()  {
+		FacebookHomePage facebookHomePage = new FacebookHomePage(driver);
+		
+		FacebookProfilePage facebookProfilePage = facebookHomePage.login(EMAIL, PASSWORD);
+		driver.navigate().back();
+		driver.navigate().to("https://web.facebook.com/");
 		Assert.assertTrue(facebookProfilePage.isOK());
 		Assert.assertTrue(facebookProfilePage.isElementPresent(FacebookProfilePage.profileNameXpath));
 		Assert.assertEquals(facebookProfilePage.getProfileName(), "Aniko");
-
+	
 	}
 
+	
 	@Test
-	public void wrongPasswordKO() throws InterruptedException {
+	public void wrongPasswordKO() {
 		FacebookHomePage facebookHomePage = new FacebookHomePage(driver);
 
 		facebookHomePage.login(EMAIL, "test2018");
 
 		FacebookLoginPage facebookLoginPage = new FacebookLoginPage(driver);
 
-		Assert.assertTrue(facebookLoginPage.isOK());
-		Assert.assertTrue(facebookLoginPage.isElementPresent(FacebookLoginPage.passwordAlerXpath));
+		AssertJUnit.assertTrue(facebookLoginPage.isOK());
+		AssertJUnit.assertTrue(facebookLoginPage.isElementPresent(FacebookLoginPage.passwordAlerXpath));
 
 	}
 
 	@Test
-	public void wrongEmailKO() throws InterruptedException {
+	public void wrongEmailKO() {
 		FacebookHomePage facebookHomePage = new FacebookHomePage(driver);
 
 		facebookHomePage.login("asklm@m", PASSWORD);
 
 		FacebookLoginPage facebookLoginPage = new FacebookLoginPage(driver);
 
-		Assert.assertTrue(facebookLoginPage.isOK());
-		Assert.assertTrue(facebookLoginPage.isElementPresent(FacebookLoginPage.emailAlertXpath));
+		AssertJUnit.assertTrue(facebookLoginPage.isOK());
+		AssertJUnit.assertTrue(facebookLoginPage.isElementPresent(FacebookLoginPage.emailAlertXpath));
 
 	}
 
 	@Test
-	public void emptyPasswordFieldsKO() throws InterruptedException {
+	public void emptyPasswordFieldKO() {
 		FacebookHomePage facebookHomePage = new FacebookHomePage(driver);
 		facebookHomePage.login(EMAIL, "");
 
 		FacebookLoginPage facebookLoginPage = new FacebookLoginPage(driver);
 
-		Assert.assertTrue(facebookLoginPage.isOK());
-		Assert.assertTrue(facebookLoginPage.isElementPresent(FacebookLoginPage.passwordAlerXpath));
+		AssertJUnit.assertTrue(facebookLoginPage.isOK());
+		AssertJUnit.assertTrue(facebookLoginPage.isElementPresent(FacebookLoginPage.passwordAlerXpath));
 	}
 
 	@Test
-	public void emptyEmaildFields() throws InterruptedException {
+	public void emptyEmaildFields() {
 		FacebookHomePage facebookHomePage = new FacebookHomePage(driver);
 
 		facebookHomePage.login("", PASSWORD);
 
 		FacebookLoginPage facebookLoginPage = new FacebookLoginPage(driver);
 
-		Assert.assertTrue(facebookLoginPage.isOK());
-		Assert.assertTrue(facebookLoginPage.isElementPresent(FacebookLoginPage.emailAlertXpath));
+		AssertJUnit.assertTrue(facebookLoginPage.isOK());
+		AssertJUnit.assertTrue(facebookLoginPage.isElementPresent(FacebookLoginPage.emailAlertXpath));
 
 	}
 
 	@Test
-	public void EmptyFieldsKO() throws InterruptedException {
+	public void emptyFieldsKO() {
 		FacebookHomePage facebookHomePage = new FacebookHomePage(driver);
 		facebookHomePage.login("", "");
 
 		FacebookLoginPage facebookLoginPage = new FacebookLoginPage(driver);
 
-		Assert.assertTrue(facebookLoginPage.isOK());
-		Assert.assertTrue(facebookLoginPage.isElementPresent(FacebookLoginPage.emailAlertXpath));
+		AssertJUnit.assertTrue(facebookLoginPage.isOK());
+		AssertJUnit.assertTrue(facebookLoginPage.isElementPresent(FacebookLoginPage.emailAlertXpath));
 	}
 
 	@Test
-	public void signoutTest() throws InterruptedException {
+	public void signoutTest() {
 		FacebookHomePage facebookHomePage = new FacebookHomePage(driver);
 
 		FacebookProfilePage facebookProfilePage = facebookHomePage.login(EMAIL, PASSWORD);
 
 		FacebookHomePage facebookHomePage2 = facebookProfilePage.signout();
 
-		Assert.assertTrue(facebookHomePage2.isOK());
+		AssertJUnit.assertTrue(facebookHomePage2.isOK());
 	}
 
 }
