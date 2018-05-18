@@ -21,6 +21,9 @@ public class FacebookHomePage extends PageObject {
 
 	@FindBy(xpath = "//input[@value='Log In']")
 	WebElement submitElement;
+	
+	@FindBy(xpath = "//a[text()='Forgot account?']")
+	WebElement forgotAccountElement;
 
 	public boolean isOK() {
 		waitForLoad();

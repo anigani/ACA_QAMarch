@@ -1,6 +1,9 @@
 package util;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -30,5 +33,16 @@ public class FunctionalTestBase {
 	@AfterMethod
 	public void tearDown() {
 		driver.quit();
+	}
+	
+	protected WebElement getWebElementByXpath(String xpath) {
+		WebElement we;
+		try {
+			we = driver.findElement(By.xpath(xpath));
+		} catch (NoSuchElementException e) {
+			we = null;
+		}
+		
+		return we;
 	}
 }
