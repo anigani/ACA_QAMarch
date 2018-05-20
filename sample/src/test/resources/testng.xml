@@ -3,6 +3,7 @@
    <test name="login">
     <classes>
       <class name="facebook.LoginTest"/>
+      <class name="facebook.FacebookReg"/>
     </classes>
   </test>
 </suite>

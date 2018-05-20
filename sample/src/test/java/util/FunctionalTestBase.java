@@ -1,5 +1,6 @@
 package util;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -45,4 +46,35 @@ public class FunctionalTestBase {
 		
 		return we;
 	}
+	
+	/**
+	 * 
+	 * @param length
+	 * 
+	 * @return random email
+	 */
+	public String generateEmail(int length) {
+		String allowedChars = "abcdefghijklmnopqrstuvwxyz" + // alphabets
+				"1234567890" + // numbers
+				"_-."; // special characters
+		String email = "";
+		String temp = RandomStringUtils.random(length, allowedChars);
+		email = temp.substring(0, temp.length() - 8) + "@mail.ru";
+		return email;
+	}
+	
+	/**
+	 * 
+	 * @param length
+	 * 
+	 * @return random password
+	 */
+	public String generatePassword(int length) {
+		String allowedChars = "abcdefghijklmnopqrstuvwxyz" + // alphabets
+				"1234567890" + // numbers
+				"_-.@#$%"; // special characters
+		
+		return RandomStringUtils.random(length, allowedChars);
+	}
+	
 }

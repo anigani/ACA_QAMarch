@@ -4,6 +4,10 @@
 	<groupId>am.aca.qe.tests</groupId>
 	<artifactId>sample</artifactId>
 	<version>1.0.0</version>
+	
+	<properties>
+		<testngxml>testng.xml</testngxml>
+	</properties>
 
 	<dependencies>
 
