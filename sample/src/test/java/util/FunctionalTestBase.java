@@ -16,8 +16,8 @@ public class FunctionalTestBase {
 	String driverPath = "D:\\ProgramFiles\\chromedriver.exe";
 
 	protected final String URL = "https://facebook.com";
-	protected final String EMAIL = "ani.danielyan.81@mail.ru";
-	protected final String PASSWORD = "Ani1981";
+	protected final String EMAIL = System.getProperty("email"); // "ani.danielyan.81@mail.ru";
+	protected final String PASSWORD = System.getProperty("password"); // "Ani1981";
 	
 
 	@BeforeClass
